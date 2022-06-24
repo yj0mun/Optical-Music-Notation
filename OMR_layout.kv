@@ -1,0 +1,222 @@
+#:import Factory kivy.factory.Factory
+<OMR_UI>:
+
+    Screen:
+        name: "main_page"
+
+        FloatLayout:
+            size: root.width, root.height
+
+            Button:
+                id: browse
+                text: "BROWSE..."
+                font_size: 20
+                size_hint: .2, .1
+                pos_hint: { "center_x": .3, "center_y": .15}
+                on_release: root.browse()
+
+            Button:
+                id: insert
+                text: "PREDICT"
+                font_size: 20
+                size_hint: .2, .1
+                pos_hint: { "center_x": .5, "center_y": .15}
+                on_release: root.predict()
+
+            Button:
+                id: clear
+                text: "CLEAR"
+                font_size: 20
+                size_hint: .2, .1
+                pos_hint: { "center_x": .7, "center_y": .15}
+                on_release: root.clearall()
+
+            Button:
+                id: next
+                text: "NEXT"
+                font_size: 20
+                size_hint: .2, .1
+                pos_hint: { "center_x": .9, "center_y": .05}
+                on_release:
+                    root.current = "files"
+                    root.transition.direction = "left"
+
+            Image:
+                id: image_selected
+                size_hint: .9, .75
+                pos_hint: {"center_x": .5, "center_y": .6}
+                color: 1,1,1
+                source: ""
+
+            Label:
+                id: label_selected
+                size_hint: .8, .1
+                pos_hint: {"center_x": .5, "center_y": .05}
+                color: 0,0,0
+
+#:set s dp(150)
+    Screen:
+        name: "files"
+
+        FloatLayout:
+            size: root.width, root.height
+
+            Image:
+                id: image_showing
+                size_hint: .9, .75
+                pos_hint: {"center_x": .5, "center_y": .6}
+                color: 1,1,1
+                source: ""
+
+            Label:
+                id: label_showing
+                text: ""
+                font_size: 20
+                size_hint: .8, .1
+                pos_hint: {"center_x": .5, "center_y": .25}
+                color: 0,0,0
+
+#            Label:
+#                id: showing_files_status
+#                text: ""
+#                font_size: 20
+#                size_hint: .8, .1
+#                pos_hint: {"center_x": .5, "center_y": .95}
+#                color: 0,0,0
+
+            Button:
+                id: back
+                text: "BACK"
+                font_size: 20
+                size_hint: .2, .1
+                pos_hint: { "center_x": .1, "center_y": .05}
+                on_release:
+                    root.current = "main_page"
+                    root.transition.direction = "right"
+
+            Button:
+                id: setup
+                text: "SETUP"
+                font_size: 20
+                size_hint: .2, .1
+                pos_hint: { "center_x": .1, "center_y": .15}
+                on_release:
+                    root.select_popup_window()
+
+
+            Button:
+                id: browse2
+                text: "BROWSE..."
+                font_size: 20
+                size_hint: .2, .1
+                pos_hint: { "center_x": .3, "center_y": .15}
+                on_release: root.browse_for_file()
+
+            Button:
+                id: play_pause
+                text: "PLAY "
+                font_size: 20
+                size_hint: .2, .1
+                pos_hint: { "center_x": .5, "center_y": .15}
+                on_release: root.btn_play_music()
+
+            Button:
+                id: stop
+                text: "STOP"
+                font_size: 20
+                size_hint: .2, .1
+                pos_hint: { "center_x": .7, "center_y": .15}
+                on_release: root.btn_stop_music()
+
+            Button:
+                id: clear2
+                text: "Clear"
+                font_size: 20
+                size_hint: .2, .1
+                pos_hint: { "center_x": .9, "center_y": .15}
+                on_release: root.clear_all_files(root)
+
+#            Button:
+#                id: move_left
+#                text: "LEFT"
+#                font_size: 20
+#                size_hint: .2, .1
+#                pos_hint: { "center_x": .2, "center_y": .15}
+#                on_release: root.move_left()
+#
+#            Button:
+#                id: move_right
+#                text: "RIGHT"
+#                font_size: 20
+#                size_hint: .2, .1
+#                pos_hint: { "center_x": .8, "center_y": .15}
+#                on_release: root.move_right(root)
+
+<SETUP>:
+    id: setup_popup
+    title: "Setup your files"
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            id: folder_name_label
+            text: "Folder Name"
+        TextInput:
+            id: folder_name
+            multiline: False
+        Label:
+            id: BPM_label
+            text: "Beat Per Minute (BPM)"
+        TextInput:
+            id: BPM
+            multiline: False
+        Label:
+            id: showing_label_p1
+            text: ""
+        Button:
+            text: 'Save as'
+            on_release:
+                app.root.get_files_ready()
+        Button:
+            text: 'Close'
+            on_release:
+                root.dismiss()
+
+<SETUP2>:
+    id: setup2_popup
+    title: "Setup your files"
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            id: folder_name_2_label
+            text: "Folder Name"
+        TextInput:
+            id: folder_name_2
+            multiline: True
+        Label:
+            id: BPM_2_label
+            text: "Beat Per Minute (BPM)"
+        TextInput:
+            id: BPM_2
+            multiline: False
+        Label:
+            id: showing_label_p2
+            text: ""
+        Button:
+            text: 'Save as'
+            on_release:
+                app.root.re_setup_all_files()
+        Button:
+            text: 'Close'
+            on_release:
+                root.dismiss()
+
+
+
+
+
+
+
+
+
+
+
